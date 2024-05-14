@@ -43,9 +43,10 @@
     background-image:-moz-linear-gradient(#fff7ef, #fff);
     background-image:-ms-linear-gradient(#fff7ef, #fff);
     background-image:-o-linear-gradient(#fff7ef, #fff);
-    padding:50px 40px;
+    padding:50px 50px;
     border:1px solid #efe8e1;
     padding-bottom:20px;
+    padding-top: 20px;
 }
 
 .smbg{
@@ -68,19 +69,52 @@
 
 .goodnessseccont img{
     width:100%;
+    height:auto;
+    max-width: 150px;
+    margin:0 auto;
 }
 
 .mlkpro{
     color:#636362;
-    font-size:22px;
-    line-height:22px;
-    margin-bottom:15px;
-    width:43%;
-    margin:0 auto;
+    font: size 1.2em;
+    margin-top: 10px;
     text-align:center;
+    font-weight: bold;
     
 }
+.goodnesssec {
+    background-color: #f8f8f8; /* Light background color */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth hover effects */
+  }
+  
+  .goodnesssec:hover {
+    transform: translateY(-10px); /* Lift effect on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow on hover */
+  }
+  
+  .goodnessseccont {
+    text-align: center;
+  }
 
 .goodnesssec a{
     text-decoration: none;
 }
+
+/* Media query for small screens */
+@media (max-width: 576px) {
+    .col-sm-8 {
+      width: 100%;
+      margin-bottom: 20px; /* Add some spacing on smaller screens */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .col-md-4 {
+      width: 100%;
+      margin-bottom: 20px; /* Add some spacing on smaller screens */
+    }
+  }
+  
