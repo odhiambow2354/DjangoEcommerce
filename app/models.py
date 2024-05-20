@@ -1,6 +1,30 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
+STATE_CHOICES = (
+    ('Bujumbura Mairie', 'Bujumbura Mairie'),
+    ('Ruyigi', 'Ruyigi'),
+    ('Ngozi', 'Ngozi'),
+    ('Kirundo', 'Kirundo'),
+    ('Gitega', 'Gitega'),
+    ('Karuzi', 'Karuzi'),
+    ('Rutana', 'Rutana'),
+    ('Bujumbura Rural', 'Bujumbura Rural'),
+    ('Muleba', 'Muleba'),
+    ('Muleba', 'Muleba'),
+    ('Muleba', 'Muleba'),
+    ('Nairobi', 'Nairobi'),
+    ('Mombasa', 'Mombasa'),
+    ('Kisumu', 'Kisumu'),
+    ('Nakuru', 'Nakuru'),
+    ('Eldoret', 'Eldoret'),
+    ('Thika', 'Thika'),
+    ('Malindi', 'Malindi'),
+    ('Kitale', 'Kitale'),
+    ('Garissa', 'Garissa'),
+)
+
 
 CATEGORY_CHOICES = (
     ('CR', 'Curd'),
@@ -26,4 +50,15 @@ class Product(models.Model):
         return self.title
     
 
+#customer table
+class Customer(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    locality = models.CharField(max_length=200)
+    city = models.CharField(max_length=200)
+    mobile = models.IntegerField(default=0)
+    zipcode = models.IntegerField()
+    state = models.CharField(choices=STATE_CHOICES, max_length=200)
     
+    def __str__(self):
+        return str(self.id)
