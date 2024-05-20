@@ -28,12 +28,12 @@
 
 {% block main-content %}
 <div class="container">
-    <h3 class="text-center">Welcome to Dairy Products</h3>
+    <h4 class="text-center">Mkulima Dairy Products</h4>
     <h6 class="text-center">The leading suppliers of dairy products</h6>
     <div class="row mt-4">
         <div class="col-md-4 col-sm-8 mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.1s">
             <div class="goodnesssec buttermilk smbg">
-                <a href="#">
+                <a href="{% url 'category' 'GH' %}">
                     <div class="goodnessseccont text-center">
                         <img src="{% static 'app/images/product/buffalo-ghee.png' %}" class="img-responsive" alt="Ghee">
                         <p class="mlkpro">Ghee</p>
@@ -43,7 +43,7 @@
         </div>
         <div class="col-md-4 col-sm-8 mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.1s">
             <div class="goodnesssec buttermilk smbg">
-                <a href="#">
+                <a href="{% url 'category' 'ML' %}">
                     <div class="goodnessseccont text-center">
                         <img src="{% static 'app/images/product/cow-milk.png' %}" class="img-responsive" alt="Milk">
                         <p class="mlkpro">Milk</p>
@@ -53,7 +53,7 @@
         </div>
         <div class="col-md-4 col-sm-8 mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.1s">
             <div class="goodnesssec buttermilk smbg">
-                <a href="#">
+                <a href="{% url 'category' 'CR' %}">
                     <div class="goodnessseccont text-center">
                         <img src="{% static 'app/images/product/curd-total.png' %}" class="img-responsive" alt="Curd">
                         <p class="mlkpro">Curd</p>
@@ -65,7 +65,7 @@
     <div class="row mt-4">
         <div class="col-md-4 col-sm-8 mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.1s">
             <div class="goodnesssec buttermilk smbg">
-                <a href="#">
+                <a href="{% url 'category' 'MS' %}">
                     <div class="goodnessseccont text-center">
                         <img src="{% static 'app/images/product/milk-shake-vanilla.png' %}" class="img-responsive" alt="Milkshake">
                         <p class="mlkpro">Milkshake</p>
@@ -75,7 +75,7 @@
         </div>
         <div class="col-md-4 col-sm-8 mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.1s">
             <div class="goodnesssec buttermilk smbg">
-                <a href="#">
+                <a href="{% url 'category' 'IC' %}">
                     <div class="goodnessseccont text-center">
                         <img src="{% static 'app/images/product/icbars.png' %}" class="img-responsive" alt="Icebar">
                         <p class="mlkpro">Icebar</p>
@@ -85,10 +85,10 @@
         </div>
         <div class="col-md-4 col-sm-8 mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.1s">
             <div class="goodnesssec buttermilk smbg">
-                <a href="#">
+                <a href="{% url 'category' 'IC' %}">
                     <div class="goodnessseccont text-center">
                         <img src="{% static 'app/images/product/kulfi.png' %}" class="img-responsive" alt="Kulfi">
-                        <p class="mlkpro">Kulfi</p>
+                        <p class="mlkpro">Ice Cream</p>
                     </div>
                 </a>
             </div>

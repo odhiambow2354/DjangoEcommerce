@@ -1,0 +1,27 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}Product Details - {{ product.title }}{% endblock title %}
+
+{% block main-content %}
+<div class="container">
+    <div class="row justify-content-between">
+        <div class="col-lg-5 mt-5">
+            <img src="{{ product.product_image.url }}" alt="{{ product.title }}" class="img-fluid">
+        </div>
+        <div class="col-lg-5">
+            <h3 style="font-family: Georgia; font-size: 30px;">{{ product.title }}</h3>
+            <h4>Ksh. {{product.discounted_price}}/-</h4>
+            <small class="text-decoration-line-through text-muted"><del>Ksh. {{product.selling_price}}/-</del></small><br>
+            <h4>Product Features</h4>
+            <ul class="list-unstyled fs-5">
+                <li>{{ product.description }}</li>
+            </ul>
+            <div class="d-flex">
+                <button type="submit" class="btn btn-danger me-2 px-4">Add to Cart</button>
+                <a href="#" class="btn btn-dark px-4">Buy Now</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

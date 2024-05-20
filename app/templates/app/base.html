@@ -30,21 +30,21 @@
                   Products
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Milk</a></li>
-                  <li><a class="dropdown-item" href="#">Curd</a></li>
-                  <li><a class="dropdown-item" href="#">Milkshake</a></li>
-                  <li><a class="dropdown-item" href="#">Ghee</a></li>
-                  <li><a class="dropdown-item" href="#">Lassi</a></li>
-                  <li><a class="dropdown-item" href="#">Paneer</a></li>
-                  <li><a class="dropdown-item" href="#">Cheese</a></li>
-                  <li><a class="dropdown-item" href="#">Ice-creams</a></li>
+                  <li><a class="dropdown-item" href="{% url 'category' 'ML' %}">Milk</a></li>
+                  <li><a class="dropdown-item" href="{% url 'category' 'CR' %}">Curd</a></li>
+                  <li><a class="dropdown-item" href="{% url 'category' 'MS' %}">Milkshake</a></li>
+                  <li><a class="dropdown-item" href="{% url 'category' 'GH' %}">Ghee</a></li>
+                  <li><a class="dropdown-item" href="{% url 'category' 'LS' %}">Lassi</a></li>
+                  <li><a class="dropdown-item" href="{% url 'category' 'PN' %}">Paneer</a></li>
+                  <li><a class="dropdown-item" href="{% url 'category' 'CZ' %}">Cheese</a></li>
+                  <li><a class="dropdown-item" href="{% url 'category' 'IC' %}">Ice-creams</a></li>
                 </ul>
               </li>          
               <li class="nav-item">
-                <a class="nav-link text-white" href="#">About Us</a>
+                <a class="nav-link text-white" href="{% url 'about' %}">About Us</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white" href="#">Contact Us</a>
+                <a class="nav-link text-white" href="{% url 'contact' %}">Contact Us</a>
               </li>
             </ul>
             <form class="d-flex" role="search">
@@ -70,12 +70,13 @@
               <a class="nav-link text-white" href="#"><i class="fas fa-heart"></i></a>
             </li>
 
-            <li class="nav-item mx-2">
-              <a href="#" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'login' %}">Login</a>
             </li>
-            <li class="nav-item mx-2">
-              <a href="#" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'customer_registration' %}">Register</a>
             </li>
+
           </ul>
         </div>
       </nav>
