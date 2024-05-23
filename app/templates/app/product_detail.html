@@ -18,8 +18,11 @@
                 <li>{{ product.description }}</li>
             </ul>
             <div class="d-flex">
-                <button type="submit" class="btn btn-danger me-2 px-4">Add to Cart</button>
-                <a href="#" class="btn btn-dark px-4">Buy Now</a>
+                <form action="/add-to-cart" class="d-line">
+                    <input type="hidden" name="prod_id" value="{{ product.id }}">
+                    <button type="submit" class="btn btn-danger me-2 px-4">Add to Cart</button>
+                </form>
+                <a href="{% url 'showcart' %}" class="btn btn-dark px-4">Buy Now</a>
             </div>
         </div>
     </div>

@@ -42,4 +42,3 @@ class CustomerProfileForm(forms.ModelForm):
                    'mobile':forms.NumberInput(attrs={'class':'form-control'}),
                    'state':forms.Select(attrs={'class':'form-control'}),
                    }
-        

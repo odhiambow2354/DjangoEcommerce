@@ -1,0 +1,77 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}Cart{% endblock title %}
+
+{% block main-content %}
+<div class="container my-5">
+    <div class="row">
+        {% if cart %}
+        <h3 class="text-center mb-5">My Shopping Cart</h3>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    {% for item in cart %}
+                    <div class="row mb-3">
+                        <div class="col-sm-3 text-center align-self-center">
+                            <img src="{{ item.product.product_image.url }}" alt="{{ item.product.title }}" class="img-fluid">
+                        </div>
+                        <div class="col-sm-6">
+                            <h4>{{ item.product.title }}</h4>
+                            <p class="mb-2 text-muted small">{{ item.product.description }}</p>
+                            <div class="my-3">
+                                <label for="quantity">Quantity:</label>
+                                <a class="minus-cart btn" pid="{{ item.product.id }}">
+                                    <i class="fas fa-minus-square fa-lg"></i>
+                                </a>
+                                <span id="quantity">{{ item.quantity }}</span>
+                                <a class="plus-cart btn" pid="{{ item.product.id }}">
+                                    <i class="fas fa-plus-square fa-lg"></i>
+                                </a>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="#" class="remove-cart btn btn-danger mr-3" pid="{{ item.product.id }}">Remove item</a>
+                                <p class="mb-0"><strong>Ksh. {{ item.product.discounted_price }}</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="text-muted">
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Cart Summary</h3>
+                    <hr class="text-muted">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                            Amount <span id="amount">Ksh. {{ amount|floatformat:2  }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0">
+                            Shipping
+                            <span>Ksh. 30.00</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                            <div>
+                                <strong>Total</strong>
+                                <small>
+                                    <p class="mb-0">(including VAT)</p>
+                                </small>
+                            </div>
+                            <span id="totalamount"><strong>Ksh. {{ total_amount|floatformat:2 }}</strong></span>
+                        </li>
+                    </ul>
+                    <div class="d-grid">
+                        <a href="{% url 'checkout' %}" class="btn btn-primary">Place Order</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <h3 class="text-center mb-5">Your cart is empty</h3>
+        {% endif %}
+    </div>
+</div>
+{% endblock main-content %}
