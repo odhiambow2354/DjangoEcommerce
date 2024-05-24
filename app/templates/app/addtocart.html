@@ -30,7 +30,7 @@
                                 </a>
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
-                                <a href="#" class="remove-cart btn btn-danger mr-3" pid="{{ item.product.id }}">Remove item</a>
+                                <button class="remove-cart btn btn-danger mr-3" pid="{{ item.product.id }}">Remove item</button>
                                 <p class="mb-0"><strong>Ksh. {{ item.product.discounted_price }}</strong></p>
                             </div>
                         </div>
@@ -60,7 +60,7 @@
                                     <p class="mb-0">(including VAT)</p>
                                 </small>
                             </div>
-                            <span id="totalamount"><strong>Ksh. {{ total_amount|floatformat:2 }}</strong></span>
+                            <span id="totalamount"><strong>Ksh. {{ totalamount|floatformat:2 }}</strong></span>
                         </li>
                     </ul>
                     <div class="d-grid">

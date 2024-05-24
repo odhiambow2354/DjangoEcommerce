@@ -153,7 +153,7 @@ def plus_cart(request):
         c.save()
         user = request.user
         cart = Cart.objects.filter(user=user)
-        amount = 0.0
+        amount = 0
         for p in cart:
             value = p.quantity * p.product.discounted_price
             amount = amount + value
@@ -177,7 +177,7 @@ def minus_cart(request):
             c.delete()
         user = request.user
         cart = Cart.objects.filter(user=user)
-        amount = 0.0
+        amount = 0
         for p in cart:
             value = p.quantity * p.product.discounted_price
             amount += value
@@ -196,7 +196,7 @@ def remove_cart(request):
         c.delete()
         user = request.user
         cart = Cart.objects.filter(user=user)
-        amount = 0.0
+        amount = 0
         for p in cart:
             value = p.quantity * p.product.discounted_price
             amount += value

@@ -1,7 +1,7 @@
 // Add item to cart
     $('.plus-cart').click(function() {
         var id = $(this).attr("pid").toString();
-        var eml = this.parentNode.children[2];
+        var element = this.parentNode.children[2];
         $.ajax({
             type: "GET",
             url: '/pluscart',
@@ -38,7 +38,7 @@
     // Remove item from cart
     $('.remove-cart').click(function() {
         var id = $(this).attr("pid").toString();
-        var eml = this
+        var element = this
         $.ajax({
             type: "GET",
             url: "/removecart",
