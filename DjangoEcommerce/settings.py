@@ -126,7 +126,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-LOGIN_REDIRECT_URL = '/profile/'
+LOGIN_REDIRECT_URL = '/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -142,3 +142,13 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD') 
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+# Mpesa settings
+CONSUMER_KEY = os.environ.get('CONSUMER_KEY')
+CONSUMER_SECRET = os.environ.get('CONSUMER_SECRET')
+ACCESS_TOKEN = os.environ.get('ACCESS_TOKEN')
+MPESA_BUSINESS_SHORTCODE = os.environ.get('MPESA_BUSINESS_SHORTCODE')
+MPESA_PASSKEY = os.environ.get('MPESA_PASSKEY')
+MPHONE_NUMBER = os.environ.get('phone_number')
+Stkpush_url = os.environ.get('Stkpush_url')
+

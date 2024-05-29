@@ -76,3 +76,42 @@ class Cart(models.Model):
 
     class Meta:
         unique_together = ('user', 'product')
+
+#order table
+STATUS_CHOICES = (
+    ('Accepted', 'Accepted'),
+    ('Packed', 'Packed'),
+    ('On The Way', 'On The Way'),
+    ('Delivered', 'Delivered'),
+    ('Cancelled', 'Cancelled'),
+    ('pending', 'pending'),
+)
+
+class MpesaTransaction(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    order = models.ForeignKey('OrderPlaced', on_delete=models.CASCADE, related_name='mpesa_transactions')
+    mpesa_transaction_id = models.CharField(max_length=255, unique=True)
+    amount = models.FloatField()  # Amount paid in cents
+    payment_status = models.CharField(max_length=200)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+class OrderPlaced(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    payment = models.ForeignKey(MpesaTransaction, on_delete=models.CASCADE, null=True, blank=True)
+    ordered_date = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='pending')
+    payment_method = models.CharField(max_length=20, choices=[('Mpesa', 'M-Pesa'), ('Other', 'Other')], default='Mpesa')
+
+    @property
+    def total_cost(self):
+        return self.quantity * self.product.discounted_price
+    
+class Wishlist(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return str(self.id)

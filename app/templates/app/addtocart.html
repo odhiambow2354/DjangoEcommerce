@@ -1,8 +1,6 @@
 {% extends 'app/base.html' %}
 {% load static %}
-
 {% block title %}Cart{% endblock title %}
-
 {% block main-content %}
 <div class="container my-5">
     <div class="row">
@@ -60,7 +58,7 @@
                                     <p class="mb-0">(including VAT)</p>
                                 </small>
                             </div>
-                            <span id="totalamount"><strong>Ksh. {{ totalamount|floatformat:2 }}</strong></span>
+                            <span id="totalamount"><strong>Ksh. {{totalamount|floatformat:2}}</strong></span>
                         </li>
                     </ul>
                     <div class="d-grid">

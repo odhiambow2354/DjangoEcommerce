@@ -4,6 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_view
 from .forms import LoginForm, MyPasswordResetForm, MyPasswordChangeForm, MySetPasswordForm
+from django.contrib import admin
 
 
 urlpatterns = [
@@ -19,10 +20,15 @@ urlpatterns = [
     #add to cart
     path('add-to-cart/', views.add_to_cart, name='add-to-cart'),
     path('cart/', views.show_cart, name='showcart'),
-    path('checkout/', views.checkout.as_view(), name='checkout'),
+    path('checkout/', views.CheckoutView.as_view(), name='checkout'),
     path('pluscart/', views.plus_cart),
     path('minuscart/', views.minus_cart),
     path('removecart/', views.remove_cart),
+    path('oders/', views.orders, name='orders'),
+    path('pluswishlist/', views.plus_wishlist),
+    path('minuswishlist/', views.minus_wishlist),
+
+    path('search/', views.search, name='search'),
     #login authentication 
     path('register/', views.CustomerRegistrationView.as_view(), name='customer_registration'),
     path('accounts/login/', auth_view.LoginView.as_view(template_name='app/login.html', authentication_form=LoginForm), name='login'),
@@ -36,6 +42,12 @@ urlpatterns = [
     path('password_reset_confirm/<uidb64>/<token>/', auth_view.PasswordResetConfirmView.as_view(template_name='app/password_reset_confirm.html', form_class=MySetPasswordForm), name='password_reset_confirm'),
     path('password_reset_complete/', auth_view.PasswordResetCompleteView.as_view(template_name='app/password_reset_complete.html'), name='password_reset_complete'),
 
+    #payment urls
+
+
 
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+admin.site.site_header = "Dairy Product E-Shop"
+admin.site.site_title = "Dairy Product E-Shop Admin Portal"
+admin.site.index_title = "Welcome to Dairy Product E-Shop Admin Portal"
