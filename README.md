@@ -22,26 +22,25 @@ Installation
 
 Create a virtual environment (recommended):
 
-python -m venv venv
-source venv/bin/activate  
+    python -m venv venv
+    source venv/bin/activate  
 # Windows: venv\Scripts\activate.bat
 
 Install dependencies:
 
-pip install -r requirements.txt
+    pip install -r requirements.txt
 
 Apply database migrations:
-python manage.py makemigrations
-python manage.py migrate
+    python manage.py makemigrations
+    python manage.py migrate
 
 Create a superuser for administrative access:
 
-python manage.py createsuperuser
+    python manage.py createsuperuser
 
 Run the development server:
 
-
-python manage.py runserver
+    python manage.py runserver
 
 
 Usage
@@ -50,10 +49,8 @@ Usage
     Browse products, add them to your cart and wishlist using the provided buttons.
     Manage items in your cart and wishlist as needed.
 
-Payment Integration (Work in Progress)
-
-The payment integration functionality is currently under development. We'll provide further details and instructions once it's implemented.
-
+Payment Integration : 
+Create developer account and get the necessary credentials
 Contributing
 
 I welcome contributions to this project! Please feel free to fork the repository, make changes, and submit pull requests.

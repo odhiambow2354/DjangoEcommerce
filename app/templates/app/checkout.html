@@ -1,9 +1,9 @@
 {% extends 'app/base.html' %}
 {% load static %}
-
+        
 {% block title %}
     Checkout
-{% endblock title %}
+{% endblock %}
 
 {% block main-content %}
     <div class="container">
@@ -33,7 +33,7 @@
             <div class="col-sm-4 offset-sm-1">
                 <h3>Select Shipping Address</h3>
                 <hr>
-                <form method="post" id="myform">
+                <form method="post" id="payment-form">
                     {% csrf_token %}
                     {% for ad in add %}
                         <div class="card mb-3">
@@ -53,14 +53,55 @@
                         <label for="totamount" class="form-label">Total Amount</label>
                         <input type="number" class="form-control" name="totamount" value="{{ totalamount }}" readonly step="1">
                     </div>
+                    <input type="hidden" id="phone_number" name="phone_number" value="0748869600"> <!-- Adjust as necessary -->
+                    <input type="hidden" id="amount" name="amount" value="{{ totalamount }}"> <!-- Adjust as necessary -->
                     <div class="text-end">
-                        <!--<button type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Continue</button>-->
-                        <button id="pay" type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Payment</button>
-                     </div>
+                        <button id="pay" type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Buy Now</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
     
-{% endblock main-content %}
+    <!-- Payment Response Modal -->
+    <div class="modal fade" id="payment-response-modal" tabindex="-1" aria-labelledby="payment-response-modal-label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="payment-response-modal-label">Payment Response</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="payment-response-message"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('#payment-form').on('submit', function(event) {
+            event.preventDefault();
 
+            $.ajax({
+                url: '{% url "payments:index" %}',
+                type: 'POST',
+                data: {
+                    phone_number: $('#phone_number').val(),
+                    amount: $('#amount').val(),
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    // Display success message in modal
+                    $('#payment-response-message').html('<p>Payment request sent to your phone. Please complete the payment.</p>');
+                    $('#payment-response-modal').modal('show');  // Show the modal
+                },
+                error: function(xhr, errmsg, err) {
+                    // Display error message in modal
+                    $('#payment-response-message').html('<p>Error: ' + errmsg + '</p>');
+                    $('#payment-response-modal').modal('show');  // Show the modal
+                }
+            });
+        });
+    </script>
+{% endblock main-content %}

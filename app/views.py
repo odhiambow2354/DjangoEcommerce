@@ -187,7 +187,6 @@ def show_cart(request):
     return render(request, 'app/addtocart.html', locals())
 # Mpesa payment integration
 class CheckoutView(View):
-
     def get(self, request):
         totalitem = 0
         wishitem = 0
@@ -217,11 +216,6 @@ class CheckoutView(View):
         return render(request, 'app/checkout.html', context)
 
     def post(self, request):
-        totalitem = 0
-        wishitem = 0
-        if request.user.is_authenticated:
-            totalitem = len(Cart.objects.filter(user=request.user))
-            wishitem = len(Wishlist.objects.filter(user=request.user))
         user = request.user
         cart_items = Cart.objects.filter(user=user)
         famount = 0.0
@@ -229,7 +223,6 @@ class CheckoutView(View):
             value = p.quantity * p.product.discounted_price
             famount = famount + value
         totalamount = famount + 30
-
         phone_number = request.POST.get('phone_number')
         phone_number_form = CustomerProfileForm(request.POST or None)  # Pass form data for validation
 
@@ -243,6 +236,8 @@ class CheckoutView(View):
             'famount': famount,
             'totalamount': totalamount,
             'phone_number_form': phone_number_form,
+            'totalitem': len(Cart.objects.filter(user=user)),  # Add totalitem
+            'wishitem': len(Wishlist.objects.filter(user=user)),  # Add wishitem
         }
 
         if phone_number_form.is_valid():  # Validate phone number form
@@ -353,13 +348,13 @@ def remove_cart(request):
     
 
 def orders(request):
+    order_placed = OrderPlaced.objects.filter(user=request.user)
     totalitem = 0
     wishitem = 0
     if request.user.is_authenticated:
         totalitem = len(Cart.objects.filter(user=request.user))
         wishitem = len(Wishlist.objects.filter(user=request.user))
     
-    order_placed = OrderPlaced.objects.filter(user=request.user)
     return render(request, 'app/orders.html', locals())
 
 def plus_wishlist(request):

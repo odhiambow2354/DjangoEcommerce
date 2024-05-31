@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_daraja',
     "app",
+    'payments',
 ]
 
 MIDDLEWARE = [
@@ -144,11 +146,8 @@ EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
 # Mpesa settings
-CONSUMER_KEY = os.environ.get('CONSUMER_KEY')
-CONSUMER_SECRET = os.environ.get('CONSUMER_SECRET')
-ACCESS_TOKEN = os.environ.get('ACCESS_TOKEN')
+MPESA_CONSUMER_KEY = os.environ.get('MPESA_CONSUMER_KEY')
+MPESA_CONSUMER_SECRET = os.environ.get('MPESA_CONSUMER_SECRET')
 MPESA_BUSINESS_SHORTCODE = os.environ.get('MPESA_BUSINESS_SHORTCODE')
 MPESA_PASSKEY = os.environ.get('MPESA_PASSKEY')
-MPHONE_NUMBER = os.environ.get('phone_number')
-Stkpush_url = os.environ.get('Stkpush_url')
 
