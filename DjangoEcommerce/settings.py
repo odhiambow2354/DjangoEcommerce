@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-#loading .env file
+
 load_dotenv()
 
 
@@ -29,20 +29,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
-if not SECRET_KEY:
-    raise ValueError("The SECRET_KEY setting must not be empty.")
+DEBUG = True
 
-DEBUG = os.environ.get('DJANGO_DEBUG', 'False').lower() in ['true', '1', 't']
 # SECURITY WARNING: don't run with debug turned on in production!
 
-# Allowed hosts
-ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost').split(',')
-# Adding the railway.app host directly
-ALLOWED_HOSTS.append('web-production-4d48.up.railway.app')
-# Log loaded settings for debugging
-print(f"SECRET_KEY: {SECRET_KEY}")
-print(f"DEBUG: {DEBUG}")
-print(f"ALLOWED_HOSTS: {ALLOWED_HOSTS}")
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 

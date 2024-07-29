@@ -9,7 +9,6 @@ from django.contrib import messages
 from django.core.mail import send_mail, EmailMessage
 from DjangoEcommerce.settings import EMAIL_HOST_USER
 from .models import Cart, OrderPlaced, MpesaTransaction, Wishlist
-from .mpesa_handler import MpesaHandler
 
 
 # Create your views here.
@@ -67,13 +66,13 @@ class CategoryTitle(View):
         return render(request, 'app/category.html', locals())
 class ProductDetail(View):
     def get(self, request, pk):
+        product = Product.objects.get(pk=pk)
+        wishitem = Wishlist.objects.filter(product=product, user=request.user)
         totalitem = 0
         wishitem = 0
         if request.user.is_authenticated:
             totalitem = len(Cart.objects.filter(user=request.user))
             wishitem = len(Wishlist.objects.filter(user=request.user))
-        product = Product.objects.get(pk=pk)
-        wishitem = Wishlist.objects.filter(product=product, user=request.user)
         return render(request, 'app/product_detail.html', locals())
     
 class CustomerRegistrationView(View):
@@ -118,8 +117,11 @@ class ProfileView(View):
         return render(request, 'app/profile.html', locals())
 def address(request):
     totalitem = 0
+    wishitem = 0
     if request.user.is_authenticated:
         totalitem = len(Cart.objects.filter(user=request.user))
+        wishitem = len(Wishlist.objects.filter(user=request.user))
+
     
     add = Customer.objects.filter(user=request.user)
     return render(request, 'app/address.html', locals())
@@ -201,21 +203,15 @@ class CheckoutView(View):
             value = p.quantity * p.product.discounted_price
             famount = famount + value
         totalamount = famount + 30
-
-        phone_number_form = CustomerProfileForm()
-
-        context = {
-            'user': user,
-            'add': add,
-            'cart_items': cart_items,
-            'famount': famount,
-            'totalamount': totalamount,
-            'phone_number_form': phone_number_form,
-        }
-
-        return render(request, 'app/checkout.html', context)
+        return render(request, 'app/checkout.html', locals())
 
     def post(self, request):
+        totalitem = 0
+        wishitem = 0
+        if request.user.is_authenticated:
+            totalitem = len(Cart.objects.filter(user=request.user))
+            wishitem = len(Wishlist.objects.filter(user=request.user))
+
         user = request.user
         cart_items = Cart.objects.filter(user=user)
         famount = 0.0
@@ -223,9 +219,7 @@ class CheckoutView(View):
             value = p.quantity * p.product.discounted_price
             famount = famount + value
         totalamount = famount + 30
-        phone_number = request.POST.get('phone_number')
-        phone_number_form = CustomerProfileForm(request.POST or None)  # Pass form data for validation
-
+        
         # Address validation (optional)
         # ... add validation logic for phone number here
 
@@ -235,43 +229,10 @@ class CheckoutView(View):
             'cart_items': cart_items,
             'famount': famount,
             'totalamount': totalamount,
-            'phone_number_form': phone_number_form,
             'totalitem': len(Cart.objects.filter(user=user)),  # Add totalitem
             'wishitem': len(Wishlist.objects.filter(user=user)),  # Add wishitem
         }
 
-        if phone_number_form.is_valid():  # Validate phone number form
-
-            try:
-                # Create MpesaHandler instance
-                mpesa_handler = MpesaHandler()
-
-                # Prepare payment data
-                payment_data = {
-                    'amount': totalamount,
-                    'phone_number': phone_number,
-                }
-
-                # Initiate STK Push using MpesaHandler
-                stk_push_response = mpesa_handler.make_stk_push(payment_data)
-
-                if stk_push_response.get('ResponseCode') == '0':
-                    # STK Push successful
-                    checkout_request_id = stk_push_response.get('CheckoutRequestID')
-                    mpesa_transaction = MpesaTransaction.objects.create(
-                        user=user,
-                        amount=totalamount,
-                        phone_number=phone_number,
-                        checkout_request_id=checkout_request_id,
-                    )
-                    # ... redirect to success page with relevant information
-
-                else:
-                    error_message = stk_push_response.get('ResponseMessage')
-                    context['error_message'] = f"STK Push Failed: {error_message}"
-
-            except Exception as e:
-                context['error_message'] = f"An error occurred: {str(e)}"
         return render(request, 'app/checkout.html', locals())  # Or redirect to appropriate page
 
 
@@ -297,10 +258,6 @@ def plus_cart(request):
         return JsonResponse(data)
     
 def minus_cart(request):
-    totalitem = 0
-    if request.user.is_authenticated:
-        totalitem = len(Cart.objects.filter(user=request.user))
-    
     if request.method == 'GET':
         prod_id = request.GET['prod_id']
         c = Cart.objects.get(Q(product=prod_id) & Q(user=request.user))
@@ -325,10 +282,6 @@ def minus_cart(request):
         return JsonResponse(data)
     
 def remove_cart(request):
-    totalitem = 0
-    if request.user.is_authenticated:
-        totalitem = len(Cart.objects.filter(user=request.user))
-    
     if request.method == 'GET':
         prod_id = request.GET['prod_id']
         c = Cart.objects.get(Q(product=prod_id) & Q(user=request.user))
